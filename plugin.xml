@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-streamingkit"
+        version="0.0.1">
+  <name>Streaming Kit</name>
+
+  <description>Cordova Plugin Streaming Kit</description>
+  <license>Apache 2.0</license>
+
+  <engines>
+      <engine name="cordova-ios" version=">=3.9.2" />
+  </engines>
+
+  <js-module name="StreamingKit" src="www/Streamingkit.js">
+    <clobbers target="window.streamingKit"/></js-module>
+
+  <platform name="ios">
+    <config-file parent="/*" target="config.xml">
+      <feature name="StreamingKit">
+        <param name="ios-package" value="CDVStreamingKitPlugin"/>
+      </feature>
+    </config-file>
+
+    <framework src="SystemConfiguration.framework" />
+    <framework src="CFNetwork.framework" />
+    <framework src="CoreFoundation.framework" />
+    <framework src="AudioToolbox.framework" />
+
+    <header-file src="src/ios/CDVStreamingKitPlugin.h" />
+    <source-file src="src/ios/CDVStreamingKitPlugin.m"/>
+
+    <header-file src="src/ios/StreamingKit/NSMutableArray+STKAudioPlayer.h"/>
+    <source-file src="src/ios/StreamingKit/NSMutableArray+STKAudioPlayer.m"/>
+    <header-file src="src/ios/StreamingKit/STKAudioPlayer.h"/>
+    <source-file src="src/ios/StreamingKit/STKAudioPlayer.m"/>
+    <header-file src="src/ios/StreamingKit/STKAutoRecoveringHTTPDataSource.h"/>
+    <source-file src="src/ios/StreamingKit/STKAutoRecoveringHTTPDataSource.m"/>
+    <header-file src="src/ios/StreamingKit/STKCoreFoundationDataSource.h"/>
+    <source-file src="src/ios/StreamingKit/STKCoreFoundationDataSource.m"/>
+    <header-file src="src/ios/StreamingKit/STKDataSource.h"/>
+    <source-file src="src/ios/StreamingKit/STKDataSource.m"/>
+    <header-file src="src/ios/StreamingKit/STKDataSourceWrapper.h"/>
+    <source-file src="src/ios/StreamingKit/STKDataSourceWrapper.m"/>
+    <header-file src="src/ios/StreamingKit/STKHTTPDataSource.h"/>
+    <source-file src="src/ios/StreamingKit/STKHTTPDataSource.m"/>
+    <header-file src="src/ios/StreamingKit/STKLocalFileDataSource.h"/>
+    <source-file src="src/ios/StreamingKit/STKLocalFileDataSource.m"/>
+    <header-file src="src/ios/StreamingKit/STKQueueEntry.h"/>
+    <source-file src="src/ios/StreamingKit/STKQueueEntry.m"/>
+  </platform>
+</plugin>

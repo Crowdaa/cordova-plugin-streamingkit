@@ -1,0 +1,16 @@
+{
+  "name": "cordova-plugin-streamingkit",
+  "version": "0.0.1",
+  "description": "",
+  "cordova": {
+    "id": "cordova-plugin-io-cordova-plugin-streamingkit",
+    "platforms": [
+      "ios" 
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios"
+  ],
+  "author": ""
+}
