@@ -19,14 +19,14 @@ exports.stop = function(success, error) {
 function dispatch(name, event) {
   var e = document.createEvent('HTMLEvents');
   e.streaming = event;
-  e.initEvent(name, true, true, arguments);
+  e.initEvent('streamingKit:' + name, true, true, arguments);
   document.dispatchEvent(e);
 }
 
 exports.onStateChanged = function (event) {
-  dispatch('streaming-event', event);
+  dispatch('state:changed', event);
 }
 
 exports.onError = function (event) {
-  dispatch('streaming-error', event);
+  dispatch('error', event);
 }
