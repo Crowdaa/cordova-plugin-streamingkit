@@ -30,3 +30,11 @@ exports.onStateChanged = function (event) {
 exports.onError = function (event) {
   dispatch('error', event);
 }
+
+exports.READY = 0;
+exports.RUNNING = 1;
+exports.BUFFERING = 3;
+exports.PAUSED = 3;
+exports.STOPPED = 4;
+exports.ERROR = 5;
+exports.DISPOSED = 6;
