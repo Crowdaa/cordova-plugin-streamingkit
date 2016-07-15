@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         id="cordova-plugin-streamingkit"
         version="0.0.1">
-  <name>Streaming Kit</name>
+  <name>cordova-plugin-streamingkit</name>
 
   <description>Cordova Plugin Streaming Kit</description>
   <license>Apache 2.0</license>
