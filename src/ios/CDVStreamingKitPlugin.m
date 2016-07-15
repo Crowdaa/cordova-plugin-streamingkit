@@ -170,6 +170,24 @@
     return [self respondWithStatus:CDVCommandStatus_OK commandId:command.callbackId];
 }
 
+- (void)dispatchEvent:(NSString *)event payload:(NSDictionary *)dict {
+    NSLog(@"dispatch event<%@> with payload<%@>", event, dict);
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options: 0 error:&error];
+
+    if (! jsonData) {
+        NSLog(@"Got an error: %@", error);
+    }
+
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSString *jsStatement = [NSString stringWithFormat:@"if(window.streamingKit) { streamingKit.%@(%@); }", event, jsonString];
+
+#ifdef __CORDOVA_4_0_0
+    [self.webViewEngine evaluateJavaScript:jsStatement completionHandler:nil];
+#else
+    [self.webView stringByEvaluatingJavaScriptFromString:jsStatement];
+#endif
+}
 #pragma mark - STKAudioPlayerDelegate Overrides
 
 /// Raised when an item has started playing
