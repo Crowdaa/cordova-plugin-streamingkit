@@ -26,3 +26,7 @@ function dispatch(name, event) {
 exports.onStateChanged = function (event) {
   dispatch('streaming-event', event);
 }
+
+exports.onError = function (event) {
+  dispatch('streaming-error', event);
+}

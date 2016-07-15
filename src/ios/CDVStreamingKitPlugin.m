@@ -207,6 +207,16 @@
     [self dispatchEvent: @"onStateChanged" payload: dict];
 }
 
+- (void) dispatchAudioPlayer:(STKAudioPlayer*)player error:(STKAudioPlayerErrorCode)errorCode {
+    NSLog(@"error item:%@ with state: %d", player.currentlyPlayingQueueItemId, errorCode);
+
+    NSDictionary *dict = @{
+        @"item": [self playerCurrentItem:player],
+        @"error": @(errorCode)
+    };
+    [self dispatchEvent: @"onError" payload: dict];
+}
+
 #pragma mark - STKAudioPlayerDelegate Overrides
 
 /// Raised when an item has started playing
@@ -234,6 +244,7 @@
 /// Raised when an unexpected and possibly unrecoverable error has occured (usually best to recreate the STKAudioPlauyer)
 -(void) audioPlayer:(STKAudioPlayer*)player unexpectedError:(STKAudioPlayerErrorCode)errorCode {
     NSLog(@"unexpectedError %@ %d", player.currentlyPlayingQueueItemId, errorCode);
+    [self dispatchAudioPlayer: player error: errorCode];
 }
 
 /// Optionally implemented to get logging information from the STKAudioPlayer (used internally for debugging)
