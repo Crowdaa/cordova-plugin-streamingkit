@@ -1,19 +1,19 @@
 var exec = require('cordova/exec');
 
 exports.play = function(url, success, error) {
-    exec(success, error, "CDVStreamingKitPlugin", "play", [url]);
+  exec(success, error, "StreamingKit", "play", [url]);
 };
 
 exports.pause = function(success, error) {
-    exec(success, error, "CDVStreamingKitPlugin", "pause", []);
+  exec(success, error, "StreamingKit", "pause", []);
 };
 
 exports.resume = function(success, error) {
-    exec(success, error, "CDVStreamingKitPlugin", "resume", []);
+  exec(success, error, "StreamingKit", "resume", []);
 };
 
 exports.stop = function(success, error) {
-    exec(success, error, "CDVStreamingKitPlugin", "stop", []);
+  exec(success, error, "StreamingKit", "stop", []);
 };
 
 function dispatch(name, event) {
