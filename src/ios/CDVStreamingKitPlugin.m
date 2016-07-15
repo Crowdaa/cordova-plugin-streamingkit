@@ -185,7 +185,7 @@
 
 /// Raised when the state of the player has changed
 -(void) audioPlayer:(STKAudioPlayer*)player stateChanged:(STKAudioPlayerState)state previousState:(STKAudioPlayerState)previousState {
-    NSLog(@"stateChanged %@ %ld %ld", player.currentlyPlayingQueueItemId, state, previousState);
+    NSLog(@"stateChanged %@ %d %d", player.currentlyPlayingQueueItemId, state, previousState);
 }
 
 /// Raised when an item has finished playing
@@ -195,7 +195,7 @@
 
 /// Raised when an unexpected and possibly unrecoverable error has occured (usually best to recreate the STKAudioPlauyer)
 -(void) audioPlayer:(STKAudioPlayer*)player unexpectedError:(STKAudioPlayerErrorCode)errorCode {
-    NSLog(@"unexpectedError %@ %ld", player.currentlyPlayingQueueItemId, errorCode);
+    NSLog(@"unexpectedError %@ %d", player.currentlyPlayingQueueItemId, errorCode);
 }
 
 /// Optionally implemented to get logging information from the STKAudioPlayer (used internally for debugging)
