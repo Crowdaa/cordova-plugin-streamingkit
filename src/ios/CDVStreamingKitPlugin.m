@@ -170,6 +170,14 @@
     return [self respondWithStatus:CDVCommandStatus_OK commandId:command.callbackId];
 }
 
+- (NSString *)playerCurrentItem: (STKAudioPlayer *)player {
+    if (!player.currentlyPlayingQueueItemId) {
+        return @"";
+    }
+
+    return [player.currentlyPlayingQueueItemId description];
+}
+
 - (void)dispatchEvent:(NSString *)event payload:(NSDictionary *)dict {
     NSLog(@"dispatch event<%@> with payload<%@>", event, dict);
     NSError *error;
@@ -188,6 +196,17 @@
     [self.webView stringByEvaluatingJavaScriptFromString:jsStatement];
 #endif
 }
+
+- (void)dispatchAudioPlayer:(STKAudioPlayer*)player stateChange:(STKAudioPlayerState)state {
+    NSLog(@"stateChange item:%@ with state: %d", player.currentlyPlayingQueueItemId, state);
+    NSDictionary *dict = @{
+                           @"item": [self playerCurrentItem:player],
+                           @"state": @(state)
+                           };
+
+    [self dispatchEvent: @"onStateChanged" payload: dict];
+}
+
 #pragma mark - STKAudioPlayerDelegate Overrides
 
 /// Raised when an item has started playing
@@ -204,6 +223,7 @@
 /// Raised when the state of the player has changed
 -(void) audioPlayer:(STKAudioPlayer*)player stateChanged:(STKAudioPlayerState)state previousState:(STKAudioPlayerState)previousState {
     NSLog(@"stateChanged %@ %d %d", player.currentlyPlayingQueueItemId, state, previousState);
+    [self dispatchAudioPlayer: player stateChange: state];
 }
 
 /// Raised when an item has finished playing
