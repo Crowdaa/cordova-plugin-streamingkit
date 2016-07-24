@@ -217,6 +217,21 @@
     [self dispatchEvent: @"onError" payload: dict];
 }
 
+- (void) dispatchAudioPlayer:(STKAudioPlayer*)player
+        onCompleteWithReason:(STKAudioPlayerStopReason)stopReason
+                 andProgress:(double)progress
+                 andDuration:(double)duration {
+    NSLog(@"complete reason:%d progress:%f duration:%f", stopReason, progress, duration);
+
+    NSDictionary *dict = @{
+                           @"item": [self playerCurrentItem:player],
+                           @"reason": @(stopReason),
+                           @"progress": @(progress),
+                           @"duration": @(duration),
+                           };
+    [self dispatchEvent: @"onError" payload: dict];
+}
+
 #pragma mark - STKAudioPlayerDelegate Overrides
 
 /// Raised when an item has started playing
@@ -239,6 +254,11 @@
 /// Raised when an item has finished playing
 -(void) audioPlayer:(STKAudioPlayer*)player didFinishPlayingQueueItemId:(NSObject*)queueItemId withReason:(STKAudioPlayerStopReason)stopReason andProgress:(double)progress andDuration:(double)duration {
     NSLog(@"didFinishPlayingQueueItemId %@ %f %f", player.currentlyPlayingQueueItemId, progress, duration);
+    [self dispatchAudioPlayer:player
+         onCompleteWithReason:stopReason
+                  andProgress:progress
+                  andDuration:duration
+     ];
 }
 
 /// Raised when an unexpected and possibly unrecoverable error has occured (usually best to recreate the STKAudioPlauyer)
