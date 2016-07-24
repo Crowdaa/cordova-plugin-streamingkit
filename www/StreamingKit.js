@@ -31,10 +31,36 @@ exports.onError = function (event) {
   dispatch('error', event);
 }
 
-exports.READY = 0;
-exports.RUNNING = 1;
-exports.BUFFERING = 3;
-exports.PAUSED = 3;
-exports.STOPPED = 4;
-exports.ERROR = 5;
-exports.DISPOSED = 6;
+exports.onStop = function (event) {
+  dispatch('stop', event);
+}
+
+exports.state = {
+  READY: 0,
+  RUNNING: 1,
+  PLAYING: 2,
+  BUFFERING: 4,
+  PAUSED: 8,
+  STOPPED: 16,
+  ERROR: 32,
+  DISPOSED: 64
+};
+
+exports.stopReason = {
+  None: 0,
+  Eof: 1,
+  UserAction: 2,
+  PendingNext: 3,
+  Disposed: 4,
+  Error: 65535
+};
+
+exports.errorCode = {
+  NONE: 0,
+  DATA_SOURCE: 1,
+  STREAM_PARSE_BYTES_FAILED: 2,
+  AUDIO_SYSTEM_ERROR: 3,
+  CODEC_ERROR: 4,
+  DATA_NOT_FOUND: 5,
+  OTHER: 65535
+};
