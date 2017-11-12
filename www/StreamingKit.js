@@ -1,5 +1,13 @@
 var exec = require('cordova/exec');
 
+exports.getDuration = function(success, error) {
+  exec(success, error, "StreamingKit", "getDuration", []);
+};
+
+exports.getProgress = function(success, error) {
+  exec(success, error, "StreamingKit", "getProgress", []);
+};
+
 exports.play = function(url, success, error) {
   exec(success, error, "StreamingKit", "play", [url]);
 };
@@ -10,6 +18,10 @@ exports.pause = function(success, error) {
 
 exports.resume = function(success, error) {
   exec(success, error, "StreamingKit", "resume", []);
+};
+
+exports.seekToTime = function(value, success, error) {
+  exec(success, error, "StreamingKit", "seekToTime", [value]);
 };
 
 exports.stop = function(success, error) {

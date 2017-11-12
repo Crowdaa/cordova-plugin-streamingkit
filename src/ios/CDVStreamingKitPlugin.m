@@ -115,6 +115,36 @@
     [self.commandDelegate sendPluginResult:result callbackId:callbackId];
 }
 
+- (void)getDuration:(CDVInvokedUrlCommand*)command
+{
+    if (audioPlayer == nil || audioPlayer.currentlyPlayingQueueItemId == nil) {
+        return [self respondWithStatus:CDVCommandStatus_ERROR commandId:command.callbackId];
+    }
+
+    double duration = [audioPlayer duration];
+    
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsDouble:duration];
+
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+- (void)getProgress:(CDVInvokedUrlCommand*)command
+{
+    if (audioPlayer == nil || audioPlayer.currentlyPlayingQueueItemId == nil) {
+        return [self respondWithStatus:CDVCommandStatus_ERROR commandId:command.callbackId];
+    }
+
+    double progress = [audioPlayer progress];
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsDouble:progress];
+    
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
 - (void)play:(CDVInvokedUrlCommand*)command
 {
     NSString* resource = [command.arguments objectAtIndex:0];
@@ -155,6 +185,20 @@
     }
 
     [audioPlayer resume];
+
+    return [self respondWithStatus:CDVCommandStatus_OK commandId:command.callbackId];
+}
+
+- (void)seekToTime:(CDVInvokedUrlCommand*)command
+{
+    NSString* resource = [command.arguments objectAtIndex:0];
+    double value = [resource doubleValue];
+
+    if (audioPlayer == nil || audioPlayer.currentlyPlayingQueueItemId == nil) {
+        return [self respondWithStatus:CDVCommandStatus_ERROR commandId:command.callbackId];
+    }
+
+    [audioPlayer seekToTime:value];
 
     return [self respondWithStatus:CDVCommandStatus_OK commandId:command.callbackId];
 }
