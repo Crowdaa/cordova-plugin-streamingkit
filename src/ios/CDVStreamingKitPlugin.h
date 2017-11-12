@@ -10,9 +10,12 @@
 @property (readwrite, retain) STKAudioPlayer* audioPlayer;
 @property (readwrite, unsafe_unretained) id<STKAudioPlayerDelegate> delegate;
 
+- (void)getProgress:(CDVInvokedUrlCommand *)command;
+- (void)getDuration:(CDVInvokedUrlCommand *)command;
 - (void)play:(CDVInvokedUrlCommand *)command;
 - (void)pause:(CDVInvokedUrlCommand *)command;
 - (void)resume:(CDVInvokedUrlCommand *)command;
+- (void)seekToTime:(CDVInvokedUrlCommand *)command;
 - (void)stop:(CDVInvokedUrlCommand *)command;
 
 @end
