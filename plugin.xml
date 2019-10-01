@@ -12,7 +12,7 @@
       <engine name="cordova-ios" version=">=3.9.2" />
   </engines>
 
-  <js-module name="StreamingKit" src="www/Streamingkit.js">
+  <js-module name="StreamingKit" src="www/StreamingKit.js">
     <clobbers target="window.streamingKit"/></js-module>
 
   <platform name="ios">
